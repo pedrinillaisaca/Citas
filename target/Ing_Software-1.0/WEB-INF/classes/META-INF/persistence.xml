@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.2" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd">
+    <!-- Define Persistence Unit -->
+    <persistence-unit name="NewPersistenceUnit"/>
+    <persistence-unit name="Practica03.EJB.JSF.JPA" transaction-type="JTA">
+        <jta-data-source>jdbc/_clinica</jta-data-source><!---->   
+        <!--<jta-data-source>jdbc/_local</jta-data-source>-->        
+        <class>ec.edu.ups.entidad_cit_cons_cert.Persona</class>
+        <class>ec.edu.ups.entidad_cit_cons_cert.Medico</class>
+        <class>ec.edu.ups.entidad_cit_cons_cert.Cita</class>
+        <class>ec.edu.ups.entidad_cit_cons_cert.HistoriaClinica</class>
+        <class>ec.edu.ups.entidad_cit_cons_cert.HistorialClinico</class>
+        <class>ec.edu.ups.entidad_cit_cons_cert.OrdenMedica</class>
+        <class>ec.edu.ups.entidad_cit_cons_cert.Paciente</class>
+        <class>ec.edu.ups.entidad_cit_cons_cert.Certificado</class>
+        <class>ec.edu.ups.entidad_cit_cons_cert.Prescripcion</class>
+        <class>ec.edu.ups.entidad_cit_cons_cert.Rol</class>
+        <class>ec.edu.ups.entidad_cit_cons_cert.Colaborador</class>
+        <class>ec.edu.ups.entidad_ingre_egre_rep.AscientoContable</class>
+        <class>ec.edu.ups.entidad_ingre_egre_rep.Caja</class>
+        <class>ec.edu.ups.entidad_ingre_egre_rep.FacturaCabecera</class>
+        <class>ec.edu.ups.entidad_ingre_egre_rep.FacturaCabecera</class>
+        <class>ec.edu.ups.entidad_ingre_egre_rep.FacturaEgreso</class>
+        <class>ec.edu.ups.entidad_ingre_egre_rep.FacturaIngreso</class>
+        <class>ec.edu.ups.entidad_ingre_egre_rep.LibroDiario</class>
+        <class>ec.edu.ups.entidad_ingre_egre_rep.Medicamento</class>
+        <properties>
+            <property name="javax.persistence.schema-generation.database.action" value="create"/>
+        </properties>
+    </persistence-unit>
+</persistence>
+
+
+

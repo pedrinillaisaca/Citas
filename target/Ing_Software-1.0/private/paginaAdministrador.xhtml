@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js" type="javascript"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js" type="javascript"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" type="javascript"></script>
+    <link rel="stylesheet" href="style/style.css"/>
+
+    <h:head>
+        <title>Pagina Administrador</title>
+
+    </h:head>
+
+    <h:body>
+
+        <div class="navbar navbar-light bg-light justify-content-between">
+            <p:graphicImage value=""/>
+            <a class="navbar-brand">Bienvenido: #{inicioSesionBean.isAdmin()} accediste como Administrador</a>
+            <h:outputLabel  value="" />
+            <!--        <p:commandLink styleClass="btn btn-primary" style="margin-right: 15px" value="Mi Colaborador"/>
+                    <p:commandLink styleClass="btn btn-primary" style="margin-right: 15px" value="Mi Cuenta"/>
+                    <p:commandLink styleClass="btn btn-primary" style="margin-right: auto" value="Mi Perfil"/>-->
+            <p:commandLink styleClass="btn btn-danger" style="margin-left: auto" value="Cerrar Sesion" action="#{inicioSesionBean.logout()}"/>
+        </div>
+
+        <hr/>
+
+        <h:form>
+            <p:tabView orientation="top" style="margin-left: 5px; margin-right: 5px;">
+                <p:tab title="Registrar nuevo Rol:">
+                    <p:panelGrid columns="2" styleClass="noBorders" style="width: 30%">
+                        <h:outputText value="Nombre del rol: " />
+                        <p:inputText  value="#{administradorBean.nombreRol}" style="display: block; margin-right: auto; width: 100%; max-width: 400px"/>                        
+                        <h:outputText value="Descripcion rol: " />
+                        <p:inputText  value="#{administradorBean.descripcion}" style="display: block; margin-right: auto; width: 100%; max-width: 400px"/>                       
+                        <h:commandButton value="Agregar" action="#{administradorBean.addRol()}" styleClass="btn btn-primary btn-block" style="display: block; margin-right: auto; max-width: 400px; color: white !important;" />
+
+                    </p:panelGrid>
+
+
+
+
+                </p:tab>
+
+                <p:tab title="Registrar Colaborador:">
+                    <p:panelGrid columns="2" styleClass="noBorders" style="width: 30%">                    
+                        <h:outputText value="Nombre: " />
+                        <p:inputText  value="#{administradorBean.nombre}" style="display: block; margin-right: auto; width: 100%; max-width: 400px"/>
+
+                        <h:outputText value="Apellido: " />
+                        <p:inputText  value="#{administradorBean.apellido}"  style="display: block; margin-right: auto; width: 100%; max-width: 400px"/>
+
+                        <h:outputText value="Cedula: " />
+                        <p:inputText  value="#{administradorBean.cedula}" style="display: block; margin-right: auto; width: 100%; max-width: 400px"/>
+
+                        <h:outputText value="Correo: " />
+                        <p:inputText  value="#{administradorBean.correo}"  style="display: block; margin-right: auto; width: 100%; max-width: 400px"/>
+
+                        <h:outputText value="Password: " />
+                        <p:password  value="#{administradorBean.password}" style="display: block; margin-right: auto; width: 100%; max-width: 400px"/>
+
+
+                        <p:selectOneMenu value="#{administradorBean.nombreRolSelect}" id="idRoles">
+                            <f:selectItems value="#{administradorBean.listaRolesForSelect()}" />                    
+                        </p:selectOneMenu>
+
+
+                        <h:commandButton value="Agregar" action="#{administradorBean.addColaborador()}" styleClass="btn btn-primary btn-block" style="display: block; margin-right: auto; max-width: 400px; color: white !important;" />
+
+
+                    </p:panelGrid>
+                    <hr style="border: 1px solid; width: 100%"/>
+                    <div>
+                        <h:panelGroup> 
+                            <p>Colaboradores:</p>
+                            <h:dataTable value="#{administradorBean.listColaboradores}" var="col" styleClass="table table-bordered table-hover">
+                                <h:column>
+                                    <f:facet name="header"><h5>CODIGO</h5></f:facet>#{col.codigo}
+                                </h:column>
+
+                                <h:column>
+                                    <f:facet name="header"><h5>NOMBRE</h5></f:facet>
+                                    <h:inputText value="#{col.nombre}" size="10" rendered="#{col.editable}" />
+                                    <h:outputText value="#{col.nombre}" rendered="#{not col.editable}" />
+                                </h:column>
+
+                                <h:column>
+                                    <f:facet name="header"><h5>APELLIDO</h5></f:facet>
+                                    <h:inputText value="#{col.apellido}" size="10" rendered="#{col.editable}" />
+                                    <h:outputText value="#{col.apellido}" rendered="#{not col.editable}" />
+                                </h:column>
+
+                                <h:column>
+                                    <f:facet name="header"><h5>ROL</h5></f:facet>
+
+                                    <h:outputText value="#{col.rol.nombre}"  />
+                                </h:column>
+
+                                <h:column>
+                                    <f:facet name="header"><h5>ACCION</h5></f:facet>
+
+                                    <h:commandButton value="Delete" action="#{medicoBean.deleted(col)}" styleClass="btn btn-danger" />
+                                </h:column>
+
+                            </h:dataTable>
+
+                        </h:panelGroup>
+                    </div>
+
+
+                </p:tab>
+
+                <p:tab title="Registrar Medicos: ">
+                    <p:panelGrid columns="2" styleClass="noBorders" style="width: 30%">
+                        <h:outputText value="Nombre: " />
+                        <p:inputText  value="#{medicoBean.nombre}" style="display: block; margin-right: auto; width: 100%; max-width: 400px"/>
+
+                        <h:outputText value="Apellido: " />
+                        <p:inputText  value="#{medicoBean.apellido}" style="display: block; margin-right: auto; width: 100%; max-width: 400px" />
+
+                        <h:outputText value="Cedula: " />
+                        <p:inputText  value="#{medicoBean.cedula}" style="display: block; margin-right: auto; width: 100%; max-width: 400px"/>
+
+                        <h:outputText value="Correo: " />
+                        <p:inputText  value="#{medicoBean.correo}" style="display: block; margin-right: auto; width: 100%; max-width: 400px" />
+
+                        <h:outputText value="Password: " />
+                        <p:password value="#{medicoBean.password}" style="display: block; margin-right: auto; width: 100%; max-width: 400px"/>
+
+                        <h:outputText value="Especialidad: " />
+                        <p:inputText  value="#{medicoBean.especialidad}" style="display: block; margin-right: auto; width: 100%; max-width: 400px" />
+
+                        <h:commandButton value="Agregar" action="#{medicoBean.addMedico()}" styleClass="btn btn-primary btn-block" style="display: block; margin-right: auto; max-width: 400px; color: white !important;" />
+                    </p:panelGrid>                    
+
+
+
+                    <hr style="border: 1px solid; width: 100%"/>
+                    <div>
+                        <p>Medicos:</p>
+                        <h:panelGroup> 
+                            <h:dataTable value="#{medicoBean.listaMedicos}" var="m" styleClass="table table-bordered table-hover">
+                                <h:column>
+                                    <f:facet name="header"><h5>CODIGO</h5></f:facet>#{m.codigo}
+                                </h:column>
+
+                                <h:column>
+                                    <f:facet name="header"><h5>NOMBRE</h5></f:facet>
+                                    <h:inputText value="#{m.nombre}" size="10" rendered="#{m.editable}" />
+                                    <h:outputText value="#{m.nombre}" rendered="#{not m.editable}" />
+                                </h:column>
+
+                                <h:column>
+                                    <f:facet name="header"><h5>APELLIDO</h5></f:facet>
+                                    <h:inputText value="#{m.apellido}" size="10" rendered="#{m.editable}" />
+                                    <h:outputText value="#{m.apellido}" rendered="#{not m.editable}" />
+                                </h:column>
+
+
+                                <h:column>
+                                    <f:facet name="header"><h5>ESPECIALIDAD</h5></f:facet>
+                                    <h:inputText value="#{m.especialidad}" size="10" rendered="#{m.editable}" />
+                                    <h:outputText value="#{m.especialidad}" rendered="#{not m.editable}" />
+                                </h:column>
+
+                                <h:column>
+                                    <f:facet name="header"><h5>ACCION</h5></f:facet>
+                                    <h:commandButton value="Delete" action="#{medicoBean.deleted(m)}" styleClass="btn btn-danger"/>
+                                </h:column>
+
+                                <h:column>
+                                    <f:facet name="header"><h5>ACCION</h5></f:facet>
+
+                                    <h:commandButton value="Edit" action="#{medicoBean.edit(m)}"
+                                                     rendered="#{not m.editable}" styleClass="btn btn-primary btn-block"/>
+                                    <h:commandButton value="Save" action="#{medicoBean.save(m)}"
+                                                     rendered="#{m.editable}" styleClass="btn btn-primary btn-block"/>
+
+                                </h:column>
+
+                            </h:dataTable>
+
+                        </h:panelGroup>
+                    </div>
+                </p:tab>
+
+            </p:tabView>
+        </h:form>
+    </h:body>
+
+</html>

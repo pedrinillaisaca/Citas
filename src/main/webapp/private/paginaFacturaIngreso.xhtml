@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="US-ASCII" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+    <title>JSF 2.3</title>
+    <style type="">
+        .tabla {
+            border-collapse: collapse;
+        }
+
+        .cabeceraTabla {
+            text-align: center;
+            background: none repeat scroll 0 0 #E5E5E5;
+            border-bottom: 1px solid #BBBBBB;
+            padding: 8px;
+        }
+
+        .filaPar {
+            text-align: center;
+            background: none repeat scroll 0 0 #FFFFFFF;
+            border-top: 1px solid #BBBBBB;
+        }
+
+        .filaImpar {
+            text-align: center;
+            background: none repeat scroll 0 0 #F9F9F9;
+            border-top: 1px solid #BBBBBB;
+        }
+    </style>
+</h:head>
+<h:body>
+    <h3>JSF 2.3: dataTable</h3>
+    <h:form>
+        <ul>
+            <li>Fecha:<h:inputText size="10" value="#{facturaIngresoBean.fecha}" /></li>
+            <li>Paciente:<h:inputText size="10" value="#{facturaIngresoBean.paciente}" /></li>
+            <li>Cita:<h:inputText size="10" value="#{facturaIngresoBean.cita}" /></li>
+        </ul>
+        <h:dataTable value="#{facturaIngresoBean.list}" var="o" styleClass="tabla"
+                     headerClass="cabeceraTabla" rowClasses="filaPar,filaImpar">
+            <h:column>
+                <f:facet name="header">Codigo</f:facet>#{o.codigo}</h:column>
+            <h:column>
+                <f:facet name="header">Medicamento</f:facet>
+                <h:inputText value="#{o.medicamento}" size="10" />
+                <h:outputText value="#{o.medicamento}"  />
+            </h:column>
+            <h:column>
+                <f:facet name="header">Cantidad</f:facet>
+                <h:inputText value="#{o.cantidad}" size="10"/>
+                <h:outputText value="#{o.cantidad}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Total</f:facet>
+                <h:inputText value="#{o.total}" size="10"/>
+                <h:outputText value="#{o.total}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Accion</f:facet>
+                <h:commandLink value="Delete" action="#{collectionBean.delete(o)}" />
+            </h:column>
+            <h:column>
+                <f:facet name="header">Accion</f:facet>
+                <h:commandLink value="Edit" action="#{collectionBean.edit(o)}"
+                              />
+                <h:commandLink value="Save" action="#{collectionBean.save(o)}"
+                                />
+            </h:column>
+        </h:dataTable>
+
+        <ul>
+            <li>Cantidad:<h:inputText size="10" value="#{facturaIngresoBean.cantidad}" /></li>
+            <li>Medicamento:<h:inputText size="10" value="#{facturaIngresoBean.medicamento}" /></li>
+
+        </ul>
+        <h:commandButton value="Add" action="#{collectionBean.add}" />
+        <ul>
+            <li>Subtotal:<h:inputText size="10" value="#{facturaIngresoBean.subtotal}" /></li>
+            <li>Total IVA:<h:inputText size="10" value="#{facturaIngresoBean.total_iva}" /></li>
+            <li>Total:<h:inputText size="10" value="#{facturaIngresoBean.total}" /></li>
+            <li>Caja:<h:inputText size="10" value="#{facturaIngresoBean.caja}" /></li>
+        </ul>
+
+
+
+
+    </h:form>
+</h:body>
+</html>

@@ -1,0 +1,69 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<faces-config version="2.3"
+              xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_3.xsd">
+    
+
+    <navigation-case>
+        <from-action>#{inicioSesionBean.redireccion}</from-action>
+        <from-outcome>paciente</from-outcome>
+        <to-view-id>facesc</to-view-id>
+    </navigation-case>
+    <navigation-case>
+        <from-action>#{inicioSesionBean.redireccion}</from-action>
+        <from-outcome>medico</from-outcome>
+        <to-view-id>/private/paginaPrincipalMedico.xhtml</to-view-id>
+    </navigation-case>
+    <navigation-case>
+        <from-action>#{inicioSesionBean.redireccion}</from-action>
+        <from-outcome>administrador</from-outcome>
+        <to-view-id>/private/paginaAdministrador.xhtml</to-view-id>
+    </navigation-case>
+    
+    <application>
+        <resource-handler>
+            org.omnifaces.resourcehandler.UnmappedResourceHandler
+        </resource-handler>
+    </application>
+    
+</faces-config>
+
+    
+    
+<!--    
+
+
+<navigation-rule>
+    <from-view-id>/index.xhtml</from-view-id>
+    <navigation-case>
+        <from-outcome>paciente</from-outcome>
+        <if>#{inicioSesionBean.login}</if>
+        <to-view-id>/private/paginaPrincipalPaciente.xhtml</to-view-id>
+    </navigation-case>
+</navigation-rule>
+
+<navigation-rule>
+    <from-view-id>/index.html</from-view-id>
+    <navigation-case>
+        <to-view-id>/registro.xhtml</to-view-id>
+    </navigation-case>
+</navigation-rule>
+
+ <navigation-rule>
+<navigation-case>
+    <from-outcome>redireccion</from-outcome>
+    <to-view-id>/private/paginaPrincipalPaciente.xhtml</to-view-id>
+</navigation-case>
+    
+    
+    <navigation-case>
+        <from-outcome>validar</from-outcome>
+        <to-view-id>/public/login.xhtml</to-view-id>
+    </navigation-case>
+    <navigation-case>
+        <from-outcome>admin</from-outcome>
+        <to-view-id>/admin/index.xhtml</to-view-id>
+    </navigation-case>
+                    
+</navigation-rule>-->
