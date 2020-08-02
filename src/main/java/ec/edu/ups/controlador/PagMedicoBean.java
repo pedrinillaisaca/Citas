@@ -98,9 +98,9 @@ public class PagMedicoBean implements Serializable {
     public void filtroCitasHoy() {
         listCitasHoy = new ArrayList<Cita>();
         for (Cita c : listCitas) {
-            if (c.getFecha().equals(fechaActual()) && c.getDisponibilidad() == 'S') {
+//            if (c.getFecha().equals(fechaActual()) && c.getDisponibilidad() == 'S') {
                 listCitasHoy.add(c);
-            }
+//            }
         }
     }
 

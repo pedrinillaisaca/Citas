@@ -17,6 +17,10 @@ import javax.enterprise.context.SessionScoped;
 
 import javax.inject.Named;
 import java.io.Serializable;
+import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.Month;
 import java.util.*;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -53,7 +57,6 @@ public class CitasBean implements Serializable {
     private CertificadoFacade certFacade;
 
     /*EJB´S*/
-
     public CitasBean() {
 
     }
@@ -105,6 +108,7 @@ public class CitasBean implements Serializable {
             }
         }
     }
+//    pedro
 
     public void iniFilas() {
         this.list = new HashSet<FilaCita>();
@@ -126,11 +130,54 @@ public class CitasBean implements Serializable {
         }
     }
 
+    private String getMonthNumber(String monthName) {
+        String v = "";
+        System.out.println("PUTO " + monthName);
+
+        if (monthName.equals("Jan")) {
+            v = "01";
+        } else if (monthName.equals("Feb")) {
+            v = "02";
+        } else if (monthName.equals("Mar")) {
+            v = "03";
+        } else if (monthName.equals("Apr")) {
+            v = "04";
+        } else if (monthName.equals("May")) {
+            v = "05";
+        } else if (monthName.equals("Jun")) {
+            v = "06";
+        } else if (monthName.equals("Jul")) {
+            v = "07";
+        } else if (monthName.equals("Aug")) {
+            v = "08";
+        } else if (monthName.equals("Sep")) {
+            v = "09";
+        } else if (monthName.equals("Oct")) {
+            v = "10";
+        } else if (monthName.equals("Nov")) {
+            v = "11";
+        } else if (monthName.equals("Dec")) {
+            v = "12";
+        }
+        return v;
+    }
+
+    public String formatFecha(String fecha) {
+        String[] parts = fecha.split(" ");
+//        return parts[3] + "-" + "8" + "-" + parts[2];
+        return parts[3] + "-" + getMonthNumber(parts[1]) + "-" + parts[2];
+    }
+
     /*METODOS*/
-    public void agendarCitar(FilaCita c) {
+    public void agendarCitar(FilaCita c) throws ParseException {
 
         if (verificarCita(c)) {
             Cita cita = new Cita();
+            SimpleDateFormat dateFormat = new SimpleDateFormat(
+                    "yyyy-MM-dd hh:mm:ss:SSS");
+            Date date1 = dateFormat.parse(formatFecha(c.getFecha()) + " " + c.getSeleccionado() + ":00:000");
+            Timestamp dateTimeStamp = new Timestamp(date1.getTime());
+            cita.setFec_hora(dateTimeStamp);
             cita.setDisponibilidad('S');
             cita.setFecha(c.getFecha());
             cita.setHora(c.getSeleccionado());

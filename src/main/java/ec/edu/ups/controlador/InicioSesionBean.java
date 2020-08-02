@@ -136,8 +136,9 @@ public class InicioSesionBean implements Serializable {
                 session.setAttribute("colaborador", c);
                 login = true;
                 switch (c.getRol().getNombre()) {
-                    case "CONTADOR":
-                        FacesContext.getCurrentInstance().getExternalContext().redirect("/Ing_Software/private/paginaPrincipalCont.xhtml");
+                    case "CONTADOR": 
+                        System.out.println("$$$$$$$$$$$$$$$$CONTADOR");
+                        FacesContext.getCurrentInstance().getExternalContext().redirect("/Ing_Software/private/index.xhtml");
                     case "SECRETARIA":
                         FacesContext.getCurrentInstance().getExternalContext().redirect("/Ing_Software/private/paginaPrincipalSecre.xhtml");
                     case "ADMINISTRADOR":
@@ -177,7 +178,7 @@ public class InicioSesionBean implements Serializable {
         }
         return medicoLogin.getNombre() + " " + medicoLogin.getApellido();
     }
-
+    
     public String isPaciente() {
         FacesContext context = FacesContext.getCurrentInstance();
         Paciente paciente = (Paciente) Session.getSessionMap().get("paciente");
@@ -195,7 +196,22 @@ public class InicioSesionBean implements Serializable {
         Colaborador colabLog = (Colaborador) Session.getSessionMap().get("colaborador");
         try {
             if (colabLog == null || !colabLog.getRol().getNombre().equals("ADMINISTRADOR")) {// 
-                System.out.println("VALE EL FILTRO");
+                System.out.println("NO ERES ADMINISTRADOR FUERA!!");
+                context.getExternalContext().redirect("../index.xhtml");
+            }
+        } catch (Exception e) {
+        }
+
+        return colabLog.getNombre() + " " + colabLog.getApellido();
+    }
+    
+    public String isContador() {
+        FacesContext context = FacesContext.getCurrentInstance();
+        Colaborador colabLog = (Colaborador) Session.getSessionMap().get("colaborador");
+        System.out.println("El rol es: "+colabLog.getRol().getNombre().equals("CONTADOR"));
+        try {
+            if (colabLog == null || !colabLog.getRol().getNombre().equals("CONTADOR")) {// 
+                System.out.println("NO ERES CONTADOR FUERA!!!");
                 context.getExternalContext().redirect("../index.xhtml");
             }
         } catch (Exception e) {

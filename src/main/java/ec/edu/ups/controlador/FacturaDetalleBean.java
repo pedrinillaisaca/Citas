@@ -2,19 +2,17 @@ package ec.edu.ups.controlador;
 
 import ec.edu.ups.ejb.FacturaDetalleFacade;
 import ec.edu.ups.entidad_ingre_egre_rep.FacturaDetalle;
-import ec.edu.ups.entidad_ingre_egre_rep.FacturaIngreso;
 import ec.edu.ups.entidad_ingre_egre_rep.Medicamento;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
-import javax.faces.annotation.FacesConfig;
+
 import javax.inject.Named;
-import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
 
-@FacesConfig(version = FacesConfig.Version.JSF_2_3)
+
 @Named
 @SessionScoped
 public class FacturaDetalleBean implements Serializable {

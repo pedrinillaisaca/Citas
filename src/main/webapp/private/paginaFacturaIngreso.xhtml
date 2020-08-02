@@ -2,13 +2,38 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"/>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js" type="javascript"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js" type="javascript"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" type="javascript"></script>
 <h:head>
     <title>JSF 2.3</title>
     <style type="">
-        .tabla {
+        form{
+            margin-left: 30%;
+            width: 40%;
+            border-style: solid;
+            border-left-color: yellow;
+            border-bottom-color: yellow;
+            background: beige;
+        }
+        #Medicamento{
+
+            display: block;
+        }
+        h3{
+            background-color: deepskyblue;
+            margin-left: 30%;
+            border-radius: 10px;
+            width: 40%;
+        }
+        #tabla {
+            float: left;
             border-collapse: collapse;
         }
+
 
         .cabeceraTabla {
             text-align: center;
@@ -28,54 +53,83 @@
             background: none repeat scroll 0 0 #F9F9F9;
             border-top: 1px solid #BBBBBB;
         }
+        .body {
+            background: url("https://blogs.iadb.org/salud/wp-content/uploads/sites/15/2018/08/banner-01_1200x525-v02.jpg");
+        }
+
     </style>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js" type="javascript"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js" type="javascript"/>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" type="javascript"/>
 </h:head>
-<h:body>
-    <h3>JSF 2.3: dataTable</h3>
-    <h:form>
+<nav class="navbar navbar-expand-md navbar-dark" style="background-color: black">
+    <div>
+        <a href="https://www.javaguides.net" class="navbar-brand">Clinica.com </a>
+    </div>
+
+    <ul class="navbar-nav">
+        <li><a href="/Ing_Software/private/paginaContador.xhtml" class="nav-link">CAJA</a></li>
+        <li><a href="/Ing_Software/private/paginaFacturaEgreso.xhtml" class="nav-link">FacturaEgreso</a></li>
+        <li><a href="/Ing_Software/private/paginaFacturaIngreso.xhtml" class="nav-link">FacturaIngreso</a></li>
+        <li><a href="/Ing_Software/private/paginaLibroDiario.xhtml" class="nav-link">LibroDiario</a></li>
+    </ul>
+    <button class="btn  btn-outline-success my-2 my-sm-0 " style="margin-left: auto" type="submit" onclick="location.href='../index.xhtml'" > Cerrar Sesion</button>
+</nav>
+<h:body styleClass="body">
+    <h3>FACTURACION CITA</h3>
+    <h:form styleClass="">
         <ul>
             <li>Fecha:<h:inputText size="10" value="#{facturaIngresoBean.fecha}" /></li>
-            <li>Paciente:<h:inputText size="10" value="#{facturaIngresoBean.paciente}" /></li>
-            <li>Cita:<h:inputText size="10" value="#{facturaIngresoBean.cita}" /></li>
-        </ul>
-        <h:dataTable value="#{facturaIngresoBean.list}" var="o" styleClass="tabla"
-                     headerClass="cabeceraTabla" rowClasses="filaPar,filaImpar">
-            <h:column>
-                <f:facet name="header">Codigo</f:facet>#{o.codigo}</h:column>
-            <h:column>
-                <f:facet name="header">Medicamento</f:facet>
-                <h:inputText value="#{o.medicamento}" size="10" />
-                <h:outputText value="#{o.medicamento}"  />
-            </h:column>
-            <h:column>
-                <f:facet name="header">Cantidad</f:facet>
-                <h:inputText value="#{o.cantidad}" size="10"/>
-                <h:outputText value="#{o.cantidad}"/>
-            </h:column>
-            <h:column>
-                <f:facet name="header">Total</f:facet>
-                <h:inputText value="#{o.total}" size="10"/>
-                <h:outputText value="#{o.total}"/>
-            </h:column>
-            <h:column>
-                <f:facet name="header">Accion</f:facet>
-                <h:commandLink value="Delete" action="#{collectionBean.delete(o)}" />
-            </h:column>
-            <h:column>
-                <f:facet name="header">Accion</f:facet>
-                <h:commandLink value="Edit" action="#{collectionBean.edit(o)}"
-                              />
-                <h:commandLink value="Save" action="#{collectionBean.save(o)}"
-                                />
-            </h:column>
-        </h:dataTable>
+            <li style="float: left;margin-left: 10%;">Paciente:</li>
+            <h:inputText size="10" value="#{facturaIngresoBean.paciente}" style="float: left;"/>
+            <h:commandButton value="BUSCAR" action="#{facturaIngresoBean.buscarPaciente()}" style="" />
+            <h:outputText value="#{facturaIngresoBean.mensaje}"/>
 
-        <ul>
+        </ul>
+        <fieldset>
+            <h:selectOneMenu value="#{facturaIngresoBean.selected_cita}">
+                <f:selectItems value="#{facturaIngresoBean.citas_paciente}" var="bodega" itemValue="#{bodega.fec_hora}" itemLabel="#{bodega.fec_hora}" pt:styleClass="dropdown-item"/>
+                <f:ajax render ="idList2 idList3 tabla" event="change" />
+            </h:selectOneMenu>
+            <h:commandButton value="FACTURAR CITA SELECCIONADA" action="#{facturaIngresoBean.crearCabecera()}" />
+            <br />Level2:
+
+            <h:dataTable  value="#{facturaIngresoBean.list}" var="c" styleClass="table table-hover"
+                          headerClass="cabeceraTabla" rowClasses="filaPar,filaImpar" style=" width: 35%; margin-top: 2%; " id="tabla">
+
+                <h:column>
+                    <f:facet name="header">CODIGO MED.</f:facet>
+                    <h:outputText value="#{c.medicamento.codigo}"  />
+                </h:column>
+                <h:column>
+                    <f:facet name="header">CANTIDAD</f:facet>
+                    <h:outputText value="#{c.cantidad}"  />
+                </h:column>
+                <h:column>
+                    <f:facet name="header">MEDICAMENTO</f:facet>
+                    <h:outputText value="#{c.medicamento.nombre}"  />
+                </h:column>
+                <h:column>
+                    <f:facet name="header">PRECIO.U</f:facet>
+                    <h:outputText value="#{c.medicamento.precio}"  />
+                </h:column>
+                <h:column>
+                    <f:facet name="header">TOTAL</f:facet>
+                    <h:outputText value="#{c.total}"  />
+                </h:column>
+            </h:dataTable>
+        </fieldset>
+
+
+        <ul id="Medicamento">
             <li>Cantidad:<h:inputText size="10" value="#{facturaIngresoBean.cantidad}" /></li>
             <li>Medicamento:<h:inputText size="10" value="#{facturaIngresoBean.medicamento}" /></li>
 
         </ul>
-        <h:commandButton value="Add" action="#{collectionBean.add}" />
+        <h:commandButton value="Agregar a la Factura" action="#{facturaIngresoBean.addDetalle()}" />
+        <h:commandButton value="Agregar Consulta" action="#{facturaIngresoBean.agregarConsulta()}" />
+
         <ul>
             <li>Subtotal:<h:inputText size="10" value="#{facturaIngresoBean.subtotal}" /></li>
             <li>Total IVA:<h:inputText size="10" value="#{facturaIngresoBean.total_iva}" /></li>

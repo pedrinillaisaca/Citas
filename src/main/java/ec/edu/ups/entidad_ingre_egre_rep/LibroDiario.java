@@ -19,8 +19,7 @@ public class LibroDiario implements Serializable {
     public LibroDiario() {
     }
 
-    public LibroDiario(int codigo, GregorianCalendar fecha, List<AscientoContable> ascientos) {
-        this.codigo = codigo;
+    public LibroDiario( GregorianCalendar fecha, List<AscientoContable> ascientos) {
         this.fecha = fecha;
         this.ascientos = ascientos;
     }

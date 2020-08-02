@@ -6,6 +6,7 @@ import ec.edu.ups.entidad_ingre_egre_rep.AscientoContable;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+
 @Stateless
 public class AscientoContableFacade extends AbstractFacade<AscientoContable>{
 

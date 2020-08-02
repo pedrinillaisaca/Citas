@@ -1,25 +1,29 @@
 package ec.edu.ups.entidad_ingre_egre_rep;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.List;
 
 @Entity
 
 public class FacturaEgreso extends FacturaCabecera implements Serializable {
-    @OneToMany(cascade = CascadeType.ALL,mappedBy = "facturaingreso")
-    private List<FacturaDetalle> facturadetalles;
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "facturaEgreso")
+    private List<FacturaDetalle> facturadetalles = new ArrayList<>();;
     @ManyToOne
     private Caja caja;
 
     public FacturaEgreso() {
     }
 
-    public FacturaEgreso(GregorianCalendar fecha, double total_iva, double subtotal, double total, Caja caja, List<FacturaDetalle> facturadetalles, Caja caja1) {
-        super(fecha, total_iva, subtotal, total, caja);
+    public FacturaEgreso(GregorianCalendar fecha, double total_iva, double subtotal, double total, List<FacturaDetalle> facturadetalles, Caja caja) {
+        super(fecha, total_iva, subtotal, total);
         this.facturadetalles = facturadetalles;
-        this.caja = caja1;
+        this.caja = caja;
     }
 
     public FacturaEgreso(List<FacturaDetalle> facturadetalles, Caja caja) {
@@ -43,6 +47,8 @@ public class FacturaEgreso extends FacturaCabecera implements Serializable {
         this.caja = caja;
     }
 
+
+
     @Override
     public int hashCode() {
         return super.hashCode();
@@ -61,4 +67,3 @@ public class FacturaEgreso extends FacturaCabecera implements Serializable {
                 '}';
     }
 }
-

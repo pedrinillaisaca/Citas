@@ -2,12 +2,10 @@ package ec.edu.ups.entidad_ingre_egre_rep;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Objects;
 
-@Entity
-@Inheritance(strategy=InheritanceType.TABLE_PER_CLASS)
+@MappedSuperclass
 public class FacturaCabecera implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -17,18 +15,15 @@ public class FacturaCabecera implements Serializable {
     private double total_iva;
     private double subtotal;
     private double total;
-    @ManyToOne
-    private Caja caja;
 
     public FacturaCabecera() {
     }
 
-    public FacturaCabecera(GregorianCalendar fecha, double total_iva, double subtotal, double total, Caja caja) {
+    public FacturaCabecera(GregorianCalendar fecha, double total_iva, double subtotal, double total) {
         this.fecha = fecha;
         this.total_iva = total_iva;
         this.subtotal = subtotal;
         this.total = total;
-        this.caja = caja;
     }
 
     public int getCodigo() {
@@ -71,13 +66,6 @@ public class FacturaCabecera implements Serializable {
         this.total = total;
     }
 
-    public Caja getCaja() {
-        return caja;
-    }
-
-    public void setCaja(Caja caja) {
-        this.caja = caja;
-    }
 
     @Override
     public boolean equals(Object o) {

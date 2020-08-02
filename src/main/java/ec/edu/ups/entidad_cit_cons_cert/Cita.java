@@ -5,6 +5,8 @@ import ec.edu.ups.entidad_ingre_egre_rep.FacturaIngreso;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.GregorianCalendar;
 import java.util.Objects;
 
 
@@ -34,6 +36,7 @@ public class Cita implements Serializable {
         this.paciente = paciente;
         this.facturaingreso = facturaingreso;
     }
+   
 
     public int getCodigo() {
         return codigo;
@@ -124,4 +127,9 @@ public class Cita implements Serializable {
                 ", facturaingreso=" + facturaingreso +
                 '}';
     }
+
+ 
+    
+    
+    
 }

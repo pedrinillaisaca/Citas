@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+    <title> Factura Egreso</title>
+    <style type="">
+        .tabla {
+            border-collapse: collapse;
+        }
+        form{
+            margin-left: 30%;
+            width: 60%;
+            border-style: solid;
+            border-left-color: yellow;
+            border-bottom-color: yellow;
+            background: beige;
+        }
+
+        .cabeceraTabla {
+            text-align: center;
+            background: none repeat scroll 0 0 #E5E5E5;
+            border-bottom: 1px solid #BBBBBB;
+            padding: 8px;
+        }
+
+        .filaPar {
+            text-align: center;
+            border-top: 1px solid #BBBBBB;
+        }
+
+        .filaImpar {
+            text-align: center;
+            background: none repeat scroll 0 0 #F9F9F9;
+            border-top: 1px solid #BBBBBB;
+        }
+        .btn btn-success{
+            margin: 20px;
+        }
+        .container.col-md-5 {
+            MAX-WIDTH: 50%;
+        }
+        .body {
+            background: url("https://blogs.iadb.org/salud/wp-content/uploads/sites/15/2018/08/banner-01_1200x525-v02.jpg");
+        }
+
+
+    </style>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js" type="javascript"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js" type="javascript"/>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" type="javascript"/>
+</h:head>
+<nav class="navbar navbar-expand-md navbar-dark" style="background-color: black">
+    <div>
+        <a href="https://www.javaguides.net" class="navbar-brand">Clinica.com </a>
+    </div>
+
+    <ul class="navbar-nav">        
+        <li><a href="/Ing_Software/private/paginaContador.xhtml" class="nav-link">CAJA</a></li>
+        <a href="paginaContador.xhtml"></a>
+        <li><a href="/Ing_Software/private/paginaFacturaEgreso.xhtml" class="nav-link">FacturaEgreso</a></li>
+        <li><a href="/Ing_Software/private/paginaFacturaIngreso.xhtml" class="nav-link">FacturaIngreso</a></li>
+        <li><a href="/Ing_Software/private/paginaLibroDiario.xhtml" class="nav-link">LibroDiario</a></li>
+    </ul>
+    <button class="btn  btn-outline-success my-2 my-sm-0 " style="margin-left: auto"  type="submit" onclick="location.href='../index.xhtml'" > Cerrar Sesion</button>
+</nav>
+<h:body styleClass="body">
+    <h3 style="margin-left: 30%;">CAJA</h3>    
+    
+    <h:form styleClass="">
+        <h:inputText size="10" value="#{cajaBean.fechaCaja}" style="float: left;"/>
+        <h:commandButton value="BUSCAR" action="#{cajaBean.buscarCaja}" style="" />
+        <h:outputText value="#{cajaBean.mensaje}"/>
+        <fieldset style="float: left">
+            <h1>Ingreso</h1>
+
+            <h:dataTable  value="#{cajaBean.facturaIngresoList}" var="c" styleClass="table table-hover"
+                          headerClass="cabeceraTabla" rowClasses="filaPar,filaImpar" style=" width: 35%; margin-top: 2%; " id="tabla">
+
+                <h:column>
+                    <f:facet name="header">CODIGO MED.</f:facet>
+                    <h:outputText value="#{c.codigo}"  />
+                </h:column>
+                <h:column>
+                    <f:facet name="header">CANTIDAD</f:facet>
+                    <h:outputText value="#{c.fecha.time}"  >
+
+                    </h:outputText>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Paciente</f:facet>
+                    <h:outputText value="#{c.paciente.nombre}"  />
+                </h:column>
+                <h:column>
+                    <f:facet name="header">PRECIO.U</f:facet>
+                    <h:outputText value="#{c.total}"  />
+                </h:column>
+            </h:dataTable>
+        </fieldset>
+        <fieldset>
+            <h2>Egreso</h2>
+
+            <h:dataTable  value="#{cajaBean.facturaEgresoList}" var="c" styleClass="table table-hover"
+                          headerClass="cabeceraTabla" rowClasses="filaPar,filaImpar" style=" width: 35%; margin-top: 2%; " id="tabla2">
+
+                <h:column>
+                    <f:facet name="header">CODIGO MED.</f:facet>
+                    <h:outputText value="#{c.codigo}"  />
+                </h:column>
+                <h:column>
+                    <f:facet name="header">FECHA</f:facet>
+                    <h:outputText value="#{c.fecha.time}"  />
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">PRECIO.U</f:facet>
+                    <h:outputText value="#{c.total}"  />
+                </h:column>
+            </h:dataTable>
+        </fieldset>
+        <h:commandButton value="Cerrar Caja" action="#{cajaBean.cerrarCaja()}" />
+    </h:form>
+</h:body>
+</html>

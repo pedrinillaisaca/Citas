@@ -2,37 +2,55 @@ package ec.edu.ups.entidad_ingre_egre_rep;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.sql.Date;
 import java.util.ArrayList;
+
 import java.util.List;
 import java.util.Objects;
 
 @Entity
 public class Caja implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int codigo;
-    @OneToMany(cascade = CascadeType.ALL,mappedBy = "caja")
-    private List<FacturaCabecera> facturas;
-
+    private Date fecha;
+    private String descripcion;
     @OneToMany(cascade = CascadeType.ALL,mappedBy = "caja")
     private List<FacturaIngreso> facturasIngreso;
-
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "caja")
+    private List<FacturaEgreso> facturaEgresos;
 
     public Caja() {
         facturasIngreso= new ArrayList<FacturaIngreso>();
     }
 
-    public Caja(int codigo, List<FacturaCabecera> facturas) {
+
+    public Caja(int codigo, Date fecha, String descripcion, List<FacturaIngreso> facturasIngreso, List<FacturaEgreso> facturaEgresos) {
         this.codigo = codigo;
-        this.facturas = facturas;
-    }
-
-    public List<FacturaIngreso> getFacturasIngreso() {
-        return facturasIngreso;
-    }
-
-    public void setFacturasIngreso(List<FacturaIngreso> facturasIngreso) {
+        this.fecha = fecha;
+        this.descripcion = descripcion;
         this.facturasIngreso = facturasIngreso;
+        this.facturaEgresos = facturaEgresos;
+    }
+    public Caja(int codigo, Date fecha, String descripcion) {
+        this.codigo = codigo;
+        this.fecha = fecha;
+        this.descripcion = descripcion;
+    }
+
+    public Date getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(Date fecha) {
+        this.fecha = fecha;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 
     public int getCodigo() {
@@ -43,16 +61,21 @@ public class Caja implements Serializable {
         this.codigo = codigo;
     }
 
-    public List<FacturaCabecera> getFacturas() {
-        return facturas;
+    public List<FacturaIngreso> getFacturasIngreso() {
+        return facturasIngreso;
     }
 
-    public void setFacturas(List<FacturaCabecera> facturas) {
-        this.facturas = facturas;
+    public void setFacturasIngreso(List<FacturaIngreso> facturasIngreso) {
+        this.facturasIngreso = facturasIngreso;
     }
 
-    public void verificarSaldo(){}
-    public void enviarTransaccion(){}
+    public List<FacturaEgreso> getFacturaEgresos() {
+        return facturaEgresos;
+    }
+
+    public void setFacturaEgresos(List<FacturaEgreso> facturaEgresos) {
+        this.facturaEgresos = facturaEgresos;
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -65,13 +88,5 @@ public class Caja implements Serializable {
     @Override
     public int hashCode() {
         return Objects.hash(codigo);
-    }
-
-    @Override
-    public String toString() {
-        return "Caja{" +
-                "codigo=" + codigo +
-                ", facturas=" + facturas +
-                '}';
     }
 }

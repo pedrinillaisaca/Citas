@@ -2,7 +2,6 @@ package ec.edu.ups.entidad_ingre_egre_rep;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -11,9 +10,11 @@ public class FacturaDetalle implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int codigo;
     @ManyToOne
+    private FacturaEgreso facturaEgreso;
+    @ManyToOne
     private FacturaIngreso facturaingreso;
     private int cantidad;
-    @OneToOne(cascade = CascadeType.ALL,mappedBy = "facturadetalle")
+    @OneToOne
     private Medicamento medicamento;
     private double total;
 
@@ -22,6 +23,19 @@ public class FacturaDetalle implements Serializable {
 
     public FacturaDetalle(FacturaIngreso facturaingreso, int cantidad, Medicamento medicamento, double total) {
         this.facturaingreso = facturaingreso;
+        this.cantidad = cantidad;
+        this.medicamento = medicamento;
+        this.total = total;
+    }
+    public FacturaDetalle(FacturaEgreso facturaegreso, int cantidad, Medicamento medicamento, double total) {
+        this.facturaEgreso = facturaegreso;
+        this.cantidad = cantidad;
+        this.medicamento = medicamento;
+        this.total = total;
+    }
+    public FacturaDetalle(FacturaIngreso facturaingreso, FacturaEgreso facturaegreso, int cantidad, Medicamento medicamento, double total) {
+        this.facturaingreso = facturaingreso;
+        this.facturaEgreso = facturaegreso;
         this.cantidad = cantidad;
         this.medicamento = medicamento;
         this.total = total;
@@ -45,6 +59,14 @@ public class FacturaDetalle implements Serializable {
 
     public FacturaIngreso getFacturaingreso() {
         return facturaingreso;
+    }
+
+    public FacturaEgreso getFacturaEgreso() {
+        return facturaEgreso;
+    }
+
+    public void setFacturaEgreso(FacturaEgreso facturaEgreso) {
+        this.facturaEgreso = facturaEgreso;
     }
 
     public void setFacturaingreso(FacturaIngreso facturaingreso) {

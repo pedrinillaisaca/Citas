@@ -14,7 +14,7 @@ public class Medicamento {
     private GregorianCalendar fecha_caducidad;
     private double precio;
     private int registro_sanitario;
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL,mappedBy = "medicamento")
     private FacturaDetalle facturadetalle;
 
     public Medicamento() {
@@ -87,5 +87,17 @@ public class Medicamento {
     @Override
     public int hashCode() {
         return Objects.hash(codigo);
+    }
+
+    @Override
+    public String toString() {
+        return "Medicamento{" +
+                "codigo=" + codigo +
+                ", nombre='" + nombre + '\'' +
+                ", fecha_caducidad=" + fecha_caducidad +
+                ", precio=" + precio +
+                ", registro_sanitario=" + registro_sanitario +
+                ", facturadetalle=" + facturadetalle +
+                '}';
     }
 }
